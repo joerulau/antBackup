@@ -1,0 +1,27 @@
+version: "3"
+services:
+  # 对象存储服务
+  minio-server:
+    image: minio/minio:latest
+    container_name: minio-server
+    # 端口映射
+    ports:
+      - "7000:9000"
+      # 目录映射
+    volumes:
+      - "/home/docker/minio/data:/data"
+    environment:
+      MINIO_ACCESS_KEY: "hjQbwkL3fSD0h8Yh"
+      MINIO_SECRET_KEY: "kpCwpdexn79ENz7a2vBAUKbtFJkfsTSY"
+      # 启动命令
+    command: server /data
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
