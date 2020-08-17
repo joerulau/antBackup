@@ -16,7 +16,7 @@ if [ ! -d "$TAR_PATH" ]; then
         mkdir -p $TAR_PATH
 fi
 
-pg_dumpall -h ${HOST} -p ${PROT} -U ${USER} -W ${PASSWD} -c -f ${TAR_PATH}/pgsql.bak
+pg_dumpall -h ${HOST} -p ${PROT} -U ${USER} -W ${PASSWD} -f ${TAR_PATH}/pgsql.bak
 
 echo ${TAR_PATH}
 
