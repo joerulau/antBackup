@@ -212,8 +212,8 @@ Install_AntBackupClient() {
             cp ${antbakcup_dir}/src/scripts/dayly/script/pgsql-tar.sh ${backup_dayly_script_dir}/script
             sed -i "s@WORK_PATH=\/home\/backup@WORK_PATH=\/home\/backup\/backup-data@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
             sed -i "s@HOST=localhost@HOST=${pgsql_host}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
-            sed -i "s@USER=postgres@USER=${pgsql_password}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
-            sed -i "s@PASSWD=123456@PASSWD=${pgsql_user_name}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
+            sed -i "s@USER=postgres@USER=${pgsql_user_name}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
+            sed -i "s@PASSWD=123456@PASSWD=${pgsql_password}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
         else
             cp ${antbakcup_dir}/src/scripts/dayly/script/mysql-tar.sh ${backup_dayly_script_dir}/script
             sed -i "s@WORK_PATH=\/home\/backup@WORK_PATH=\/home\/backup\/backup-data@" ${backup_dayly_script_dir}/script/mysql-tar.sh
