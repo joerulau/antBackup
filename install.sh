@@ -287,7 +287,8 @@ Install_UploadService() {
     sed -i "s@WORK_PATH=\/home\/backup@WORK_PATH=\/home\/backup\/backup-data@" ${backup_upload_script_dir}/upload-tar.sh
     sed -i "s@WORK_PATH=\/home\/backup@WORK_PATH=\/home\/backup\/backup-data@" ${backup_upload_script_dir}/rms-tar.sh
 
-    sed -i "s@BUCKET=\"ip172.16.10.230\"@BUCKET=ip${IPADDR}@" ${backup_upload_script_dir}/rms-tar.sh
+    echo "install upload service. bucket is ${IPADDR}"
+    sed -i "s@BUCKET=\"ip172.16.10.230\"@BUCKET=\"ip${IPADDR}\"@" ${backup_upload_script_dir}/rms-tar.sh
 
     # 加入定时任务
     crontab -l > crontab.conf && cat >> crontab.conf <<EOF
