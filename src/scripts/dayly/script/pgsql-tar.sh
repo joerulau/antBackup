@@ -2,6 +2,9 @@
 # pasql-tar.sh
 
 USER=postgres
+HOST=localhost
+PROT=3433
+PASSWD=123456
 
 TODAY=$(date -d "now" +%Y-%m-%d)
 WORK_PATH=/home/backup
@@ -13,7 +16,7 @@ if [ ! -d "$TAR_PATH" ]; then
         mkdir -p $TAR_PATH
 fi
 
-pg_dumpall -U postgres -c -f ${TAR_PATH}/pgsql.bak
+pg_dumpall -h ${HOST} -p ${PROT} -U ${USER} -W ${PASSWD} -c -f ${TAR_PATH}/pgsql.bak
 
 echo ${TAR_PATH}
 

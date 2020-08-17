@@ -184,8 +184,36 @@ Install_AntBackupClient() {
     # Database
     if [ "${db_flag}" == 'y' ] && [ "${db_option}" != '3' ]; then
         if [[ ${db_option} == '2' ]]; then
+            while :; do echo
+                read -e -p "Please input the pgsql host: " pgsql_host
+                if [ -z "${pgsql_host}" ]; then
+                    echo "${CWARNING}input error! Please input the pgsql host${CEND}"
+                else
+                    while :; do echo
+                        read -e -p "Please input the pgsql username: " pgsql_user_name
+                        if [ -z "${pgsql_user_name}" ]; then
+                            echo "${CWARNING}input error! Please input the pgsql username${CEND}"
+                        else
+                            while :; do echo
+                                read -e -p "Please input the pgsql password: " pgsql_password
+                                if [ -z "${pgsql_password}" ]; then
+                                    echo "${CWARNING}input error! Please input the pgsql password${CEND}"
+                                else
+                                    break
+                                fi
+                            done
+                            break
+                        fi
+                    done
+                    break
+                fi
+            done
+
             cp ${antbakcup_dir}/src/scripts/dayly/script/pgsql-tar.sh ${backup_dayly_script_dir}/script
             sed -i "s@WORK_PATH=\/home\/backup@WORK_PATH=\/home\/backup\/backup-data@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
+            sed -i "s@HOST=localhost@HOST=${pgsql_host}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
+            sed -i "s@USER=postgres@USER=${pgsql_password}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
+            sed -i "s@PASSWD=123456@PASSWD=${pgsql_user_name}@" ${backup_dayly_script_dir}/script/pgsql-tar.sh
         else
             cp ${antbakcup_dir}/src/scripts/dayly/script/mysql-tar.sh ${backup_dayly_script_dir}/script
             sed -i "s@WORK_PATH=\/home\/backup@WORK_PATH=\/home\/backup\/backup-data@" ${backup_dayly_script_dir}/script/mysql-tar.sh
@@ -274,7 +302,7 @@ EOF
 
     
 
-    echo "${CSUCCESS}mc installed successfully! ${CEND}"
+    echo "${CSUCCESS}crontab added successfully! ${CEND}"
 
 }
 
